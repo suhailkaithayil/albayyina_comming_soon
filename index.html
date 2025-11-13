@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Albayyina - Coming Soon</title>
+
+    <!-- Google Font: Anek Malayalam -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-1: hsl(206 49% 12%);
+        --bg-2: hsl(205 58% 18%);
+        --accent: hsl(80 47% 57%);
+        --fg: hsl(0 0% 100%);
+        --glass: rgba(255, 255, 255, 0.06);
+      }
+
+      /* Basic layout */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Anek Malayalam", system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--fg);
+        background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+        overflow: hidden;
+        position: relative;
+        padding: 40px 24px;
+      }
+
+      /* Pattern overlay with transparency */
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("patterns2.png") repeat;
+        background-size: 160px 160px; /* smaller pattern tiles */
+        opacity: 0.04; /* low transparency */
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Decorative SVG patterns */
+      .pattern {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        opacity: 0.12;
+        pointer-events: none;
+        transform-origin: center;
+        filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.25));
+      }
+
+      .pattern--top-left {
+        left: 18px;
+        top: 18px;
+        transform: translate(-10%, -10%);
+      }
+
+      /* Make patterns smaller on small screens */
+      @media (max-width: 520px) {
+        .pattern {
+          width: 150px;
+          height: 150px;
+          opacity: 0.1;
+        }
+      }
+
+      /* Center card */
+      .card {
+        width: 100%;
+        max-width: 920px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.02)
+        );
+        border-radius: 18px;
+        padding: 44px 36px;
+        box-shadow: 0 12px 40px rgba(2, 6, 23, 0.55);
+        backdrop-filter: blur(6px) saturate(120%);
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .logo {
+        width: 150px; /* set a proper width */
+        height: 150px; /* set a proper height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+      }
+
+      .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      @keyframes logo-breathe {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(1);
+        }
+        25% {
+          transform: translateY(-6px) rotate(-1deg) scale(1.02);
+        }
+        50% {
+          transform: translateY(-3px) rotate(1deg) scale(1.03);
+        }
+        75% {
+          transform: translateY(-5px) rotate(-1deg) scale(1.01);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg) scale(1);
+        }
+      }
+
+      .logo--animate {
+        animation: logo-breathe 6s linear infinite;
+        will-change: transform;
+      }
+
+      h1 {
+        margin: 8px 0 6px 0;
+        font-weight: 800;
+        font-size: clamp(1.6rem, 3.6vw, 2.6rem);
+        line-height: 1.02;
+        letter-spacing: 0.3px;
+        color: var(--accent);
+        background: none;
+        -webkit-background-clip: unset;
+        background-clip: unset;
+      }
+
+      h2 {
+        margin: 0 0 18px 0;
+        font-weight: 600;
+        font-size: clamp(0.95rem, 2.6vw, 1.2rem);
+        color: rgba(255, 255, 255, 0.92);
+        opacity: 0.95;
+      }
+
+      p {
+        margin: 0 auto 28px auto;
+        font-size: clamp(0.98rem, 1.9vw, 1.06rem);
+        max-width: 680px;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.7;
+      }
+
+      .cta {
+        display: inline-block;
+        background: linear-gradient(
+          90deg,
+          var(--accent),
+          color-mix(in srgb, var(--accent) 70%, white)
+        );
+        color: #05212b;
+        padding: 12px 28px;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        box-shadow: 0 8px 26px rgba(23, 71, 157, 0.18);
+        transition: transform 220ms ease, box-shadow 220ms ease;
+        text-decoration: none;
+      }
+
+      .cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 46px rgba(23, 71, 157, 0.22);
+      }
+
+      footer {
+        margin-top: 18px;
+        font-size: 0.86rem;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      /* Floating / rotation animation for patterns */
+      @keyframes float-rotate {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-8px) rotate(6deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+      }
+
+      .pattern--animate {
+        animation: float-rotate 10s ease-in-out infinite;
+      }
+
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        .logo--animate,
+        .pattern--animate {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top-left decorative SVG (smaller and subtle) -->
+    <svg
+      class="pattern pattern--top-left pattern--animate"
+      viewBox="0 0 200 200"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0" stop-color="white" stop-opacity="0.9" />
+          <stop offset="1" stop-color="white" stop-opacity="0.2" />
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#g1)" stroke-width="2">
+        <circle cx="40" cy="40" r="36" />
+        <circle cx="120" cy="60" r="24" />
+        <circle cx="70" cy="140" r="18" />
+        <path d="M10 180 C60 110, 140 110, 190 180" stroke-opacity="0.06" />
+      </g>
+    </svg>
+
+    <div class="card" role="main">
+      <div class="logo logo--animate" aria-hidden="true">
+        <!-- If you have a square/round logo, put it in the img. Keep as LOGO2.png -->
+        <img src="LOGO1.png" alt="Albayyina Logo" />
+      </div>
+
+      <h1>അൽബയ്യിന</h1>
+      <h2>ശറഈ വിജ്ഞാനത്തിലേക്കുള്ള വഴികാട്ടി</h2>
+
+      <p>
+        മലയാള ഭാഷയിൽ ആധികാരികമായ ഇസ്‌ലാമിക വിജ്ഞാനം വ്യക്തതയിലും എളുപ്പത്തിലും
+        ലഭ്യമാക്കുന്ന ദഅ്‌വ-വിദ്യാഭ്യാസ പ്ലാറ്റ്‌ഫോം. ദയവായി വരവിനെ
+        കാത്തിരിക്കുക — തൽക്ഷണത്തിൽ മികച്ച പഠനസാധ്യങ്ങളുമായി മടങ്ങിവരുന്നു.
+      </p>
+
+      <a class="cta" href="#">Coming Soon</a>
+
+      <footer>© 2025 Albayyina. All rights reserved.</footer>
+    </div>
+  </body>
+</html>
